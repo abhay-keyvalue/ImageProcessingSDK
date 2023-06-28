@@ -49,6 +49,18 @@ android {
       minifyEnabled false
     }
   }
+  sourceSets {
+    main {
+      jni.srcDirs = ['src/main/jni', 'src/main/cpp/']
+      jniLibs.srcDirs = ['src/main/jniLibs']
+    }
+  }
+
+  externalNativeBuild {
+    cmake {
+      path file('src/main/cpp/CMakeLists.txt')
+    }
+  }
 
   lintOptions {
     disable "GradleCompatible"

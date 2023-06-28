@@ -1,5 +1,6 @@
 package com.imageprocessingsdk
 
+import com.example.ndksample.NDKHandler
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -16,7 +17,8 @@ class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
   // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
   fun isImageBlurred(imageUrl: String, promise: Promise) {
-    promise.resolve(imageUrl)
+    val response = NDKHandler().getBlurredImage(imageUrl)
+    promise.resolve(response)
   }
 
   companion object {
