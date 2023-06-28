@@ -11,11 +11,14 @@ npm install image-processing-sdk
 ## Usage
 
 ```js
-import { multiply } from 'image-processing-sdk';
+import { isImageBlurred } from 'image-processing-sdk';
 
 // ...
 
-const result = await multiply(3, 7);
+const imageBlur = async () => {
+  const result = await isImageBlurred('some url');
+  console.log('result', result)
+}
 ```
 
 ## Contributing
