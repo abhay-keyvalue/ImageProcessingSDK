@@ -33,13 +33,8 @@ public class ImageProcessingSDKModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void isImageBlurred(String imagePath, Promise promise) {
     try {
-      String[] command = {"python", "path/to/your/package/image_processing.py", imagePath};
-      Process process = Runtime.getRuntime().exec(command);
-      BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-      String output = reader.readLine();
-      boolean isBlurred = Boolean.parseBoolean(output);
-      promise.resolve(isBlurred);
-    } catch (IOException e) {
+      promise.resolve(imagePath);
+    } catch (Exception e) {
       promise.reject("PROCESS_FAILED", e.getMessage());
     }
   }
