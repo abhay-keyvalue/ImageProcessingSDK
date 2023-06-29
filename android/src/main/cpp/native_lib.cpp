@@ -41,11 +41,11 @@ Java_com_example_ndksample_BlurChecker_detectBlur(JNIEnv *env, jobject thiz, jby
 // Now get the c string from the java jstring object
     const char* str = env->GetStringUTFChars(strObj, NULL);
 
-    if(strcmp(str, "co.invoid.imagehelperondevicesupport.Authenticator") != 0) {
-        env->ReleaseStringUTFChars(strObj, str);
-        LOGE("Not allowed to call GlareDetector!");
-        return static_cast<jboolean>(false);
-    }
+//    if(strcmp(str, "co.invoid.imagehelperondevicesupport.Authenticator") != 0) {
+//        env->ReleaseStringUTFChars(strObj, str);
+//        LOGE("Not allowed to call GlareDetector!");
+//        return static_cast<jboolean>(false);
+//    }
     env->ReleaseStringUTFChars(strObj, str);
 
 

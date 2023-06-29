@@ -7,7 +7,7 @@ class NDKHandler {
     fun getBlurredImage(imagePath: String): Boolean{
         val image = File(imagePath)
         image.readBytes().let {
-            return blurChecker.detectBlur(it, 4)
+            return blurChecker.detectBlur(it, Any())
         }
     }
 }
