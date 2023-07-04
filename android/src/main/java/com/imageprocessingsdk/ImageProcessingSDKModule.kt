@@ -17,6 +17,7 @@ import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import com.imageprocessingsdk.imagetopdf.ImageScaling
 import com.imageprocessingsdk.imagetopdf.CreatePdfOptions
+import com.imageprocessingsdk.imagetopdf.ImageFit
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
@@ -47,7 +48,7 @@ class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
             val outputDirectory = options.outputDirectory
             val outputFilename = options.outputFilename
             val pages = options.images
-            if (pages.size == 0) {
+            if (pages.isEmpty()) {
                 throw Exception("No images provided.")
             }
             val pdfDocument = PdfDocument()
@@ -67,7 +68,7 @@ class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
                     val page: PdfDocument.Page = pdfDocument.startPage(pageInfo)
                     var scaledImage = image
                     if (width != image.width || height != image.height) {
-                        val imageFit = config.imageFit
+                        val imageFit = config.imageFit ?: ImageFit.FILL
                         val size = Point(width, height)
                         scaledImage = ImageScaling.scale(image, size, imageFit)
                     }
@@ -100,13 +101,6 @@ class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
             promise.reject("PDF_CREATE_ERROR", e.localizedMessage, e)
         }
     }
-
-//    @ReactMethod
-//    fun getDocumentsDirectory(promise: Promise) {
-//        val docsDir: String =
-//            getReactApplicationContext().getExternalFilesDir(null)?.getAbsolutePath()
-//        promise.resolve(docsDir)
-//    }
 
     @Throws(IOException::class)
     fun writePdfDocument(

@@ -11,7 +11,7 @@ class CreatePdfOptions(options: ReadableMap) {
 
     init {
         outputDirectory = options?.getString("outputDirectory") ?: "/storage/emulated/0/Download"
-        outputFilename = options?.getString("outputFilename") ?: "output_pdf"
+        outputFilename = options?.getString("outputFilename") ?: "output.pdf"
 
         images = parsePages(getArrayOrThrow(options, "images"))
     }
@@ -58,7 +58,7 @@ class CreatePdfOptions(options: ReadableMap) {
 
     class Page(
         var imagePath: String,
-        var imageFit: ImageFit,
+        var imageFit: ImageFit?,
         var width: Int?,
         var height: Int?,
         var backgroundColor: Int?
