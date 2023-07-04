@@ -38,23 +38,11 @@ def getExtOrIntegerDefault(name) {
 
 android {
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
-  ndkVersion "20.0.5594570"
 
   defaultConfig {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-    ndk {
-      abiFilters "arm64-v8a", "armeabi-v7a", "x86","x86_64"
-    }
-  }
-  packagingOptions {
-    jniLibs {
-      pickFirsts.add('lib/armeabi-v7a/libopencv_java3.so')
-      pickFirsts.add('lib/arm64-v8a/libopencv_java3.so')
-      pickFirsts.add('lib/x86/libopencv_java3.so')
-      pickFirsts.add('lib/x86_64/libopencv_java3.so')
-    }
   }
   buildTypes {
     release {
@@ -62,16 +50,14 @@ android {
     }
   }
   sourceSets {
-    main {
-      jni.srcDirs = ['src/main/jni', 'src/main/cpp/']
-      jniLibs.srcDirs = ['src/main/jniLibs']
-    }
+      main {
+          jniLibs.srcDirs = ['src/main/jnilibs']
+      }
   }
 
-  externalNativeBuild {
-    cmake {
-      path file('src/main/cpp/CMakeLists.txt')
-    }
+  packagingOptions{
+    exclude 'META-INF/rxjava.properties'
+    exclude 'META-INF/proguard/androidx-annotations.pro'
   }
 
   lintOptions {
@@ -99,6 +85,7 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation 'androidx.documentfile:documentfile:1.0.1'
+  implementation project(':openCVLibrary343')
 }
 
 if (isNewArchitectureEnabled()) {

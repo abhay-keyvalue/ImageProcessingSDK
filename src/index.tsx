@@ -15,7 +15,7 @@ export type CreatePdfOptions = {
 };
 
 export function isImageBlurred(imageUrl: string): Promise<boolean> {
-  return ImageProcessingSDK.isImageBlurred(imageUrl);
+  return ImageProcessingSDK.isImageBlurred(imageUrl.slice(8));
 }
 
 export function createImagesToPdf(options: CreatePdfOptions): Promise<string> {
