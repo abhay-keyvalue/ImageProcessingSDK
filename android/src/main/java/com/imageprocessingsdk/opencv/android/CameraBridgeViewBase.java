@@ -2,8 +2,8 @@ package com.imageprocessingsdk.opencv.android;
 
 import java.util.List;
 
-import org.opencv.BuildConfig;
-import org.opencv.R;
+import com.imageprocessingsdk.BuildConfig;
+import com.imageprocessingsdk.R;
 import com.imageprocessingsdk.opencv.core.Mat;
 import com.imageprocessingsdk.opencv.core.Size;
 

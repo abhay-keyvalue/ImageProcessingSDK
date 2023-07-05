@@ -14,6 +14,8 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
+import org.opencv.engine.OpenCVEngineInterface;
+
 class AsyncServiceHelper
 {
     public static boolean initOpenCV(String Version, final Context AppContext,

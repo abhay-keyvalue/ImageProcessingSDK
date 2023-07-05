@@ -16,7 +16,8 @@ import com.imageprocessingsdk.opencv.core.CvType;
 import com.imageprocessingsdk.opencv.core.Mat;
 import com.imageprocessingsdk.opencv.core.Size;
 
-import org.opencv.BuildConfig;
+import com.imageprocessingsdk.BuildConfig;
+import com.imageprocessingsdk.R;
 
 import com.imageprocessingsdk.opencv.imgproc.Imgproc;
 
