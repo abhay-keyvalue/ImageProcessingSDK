@@ -1,7 +1,6 @@
 package com.imageprocessingsdk
 
 import android.content.ContentResolver
-import com.example.ndksample.NDKHandler
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -23,14 +22,12 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import org.opencv.android.BaseLoaderCallback
-import org.opencv.android.LoaderCallbackInterface
-import org.opencv.android.OpenCVLoader
-import org.opencv.android.Utils
-import org.opencv.core.Core
-import org.opencv.core.Mat
-import org.opencv.core.MatOfDouble
-import org.opencv.imgproc.Imgproc
+import com.imageprocessingsdk.opencv.android.Utils
+import com.imageprocessingsdk.opencv.core.Core
+import com.imageprocessingsdk.opencv.core.Mat
+import com.imageprocessingsdk.opencv.core.MatOfDouble
+import com.imageprocessingsdk.opencv.imgproc.Imgproc
+import java.text.DecimalFormat
 
 class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
@@ -44,7 +41,7 @@ class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
     fun isImageBlurred(imageUrl: String, promise: Promise) {
       OpenCVInitializer.initialize()                    
       sourceMatImage = OpenCVInitializer.createMat()!!
-      val imageBitMap = ImageUtils.getBitmap(imageUrl);
+      val imageBitMap = ImageUtils.getBitmap(imageUrl, true);
       getSharpnessScoreFromOpenCV(imageBitMap);
     }
 
