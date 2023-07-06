@@ -1,4 +1,4 @@
-package com.jain.ullas.imageblurdetection
+package com.imageprocessingsdk
 
 import org.opencv.android.OpenCVLoader
 import org.opencv.core.CvType

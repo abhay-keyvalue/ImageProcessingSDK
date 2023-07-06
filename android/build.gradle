@@ -85,7 +85,7 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation 'androidx.documentfile:documentfile:1.0.1'
-  implementation project(':openCVLibrary343')
+  implementation files("libs/opencv.aar")
 }
 
 if (isNewArchitectureEnabled()) {

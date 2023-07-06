@@ -1,7 +1,6 @@
 package com.imageprocessingsdk
 
 import android.content.ContentResolver
-import com.example.ndksample.NDKHandler
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -18,23 +17,21 @@ import androidx.documentfile.provider.DocumentFile
 import com.imageprocessingsdk.imagetopdf.ImageScaling
 import com.imageprocessingsdk.imagetopdf.CreatePdfOptions
 import com.imageprocessingsdk.imagetopdf.ImageFit
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
-import org.opencv.android.BaseLoaderCallback
-import org.opencv.android.LoaderCallbackInterface
-import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils
 import org.opencv.core.Core
 import org.opencv.core.Mat
 import org.opencv.core.MatOfDouble
 import org.opencv.imgproc.Imgproc
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.text.DecimalFormat
 
 class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
-      private lateinit var sourceMatImage: Mat
+    private lateinit var sourceMatImage: Mat
 
     override fun getName(): String {
         return NAME
@@ -42,10 +39,11 @@ class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
 
     @ReactMethod
     fun isImageBlurred(imageUrl: String, promise: Promise) {
-      OpenCVInitializer.initialize()                    
-      sourceMatImage = OpenCVInitializer.createMat()!!
-      val imageBitMap = ImageUtils.getBitmap(imageUrl);
-      getSharpnessScoreFromOpenCV(imageBitMap);
+        OpenCVInitializer.initialize()
+        sourceMatImage = OpenCVInitializer.createMat()!!
+        val imageBitMap = ImageUtils.getBitmap(imageUrl, true);
+        val score = getSharpnessScoreFromOpenCV(imageBitMap);
+        promise.resolve(score<200)
     }
 
     fun getSharpnessScoreFromOpenCV(bitmap: Bitmap): Double {
