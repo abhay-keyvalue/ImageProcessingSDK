@@ -1,32 +1,28 @@
 import { NativeModules } from 'react-native';
+import { ERROR_CODES, validateImageUrl } from './utils';
 const { ImageProcessingSDK } = NativeModules;
 
-export type ImageFit = 'none' | 'fill' | 'contain' | 'cover';
-
-export type Page = {
-  imagePath: string;
-  imageFit?: ImageFit;
-};
-
 export type CreatePdfOptions = {
+  images: Array<string>;
   outputDirectory?: string;
   outputFilename?: string;
-  images: Array<string>;
 };
 
 export function isImageBlurred(imageUrl: string): Promise<boolean> {
-  return ImageProcessingSDK.isImageBlurred(imageUrl);
+  return new Promise((resolve, reject) => {
+    if (validateImageUrl(imageUrl)) {
+      resolve(ImageProcessingSDK.isImageBlurred(imageUrl.slice(8)));
+    } else {
+      reject(new Error(JSON.stringify(ERROR_CODES.ERR001)));
+    }
+  });
 }
 
 export function createImagesToPdf(options: CreatePdfOptions): Promise<string> {
   const { images, ...opts } = options;
-
   const internalPages = images?.map((url) => {
-    return {
-      imagePath: url,
-    };
+    return { imagePath: url };
   });
-
   return ImageProcessingSDK.createPdf({
     ...opts,
     images: internalPages,

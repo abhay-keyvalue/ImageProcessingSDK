@@ -1,7 +1,6 @@
 package com.imageprocessingsdk
 
 import android.content.ContentResolver
-import com.example.ndksample.NDKHandler
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -18,25 +17,45 @@ import androidx.documentfile.provider.DocumentFile
 import com.imageprocessingsdk.imagetopdf.ImageScaling
 import com.imageprocessingsdk.imagetopdf.CreatePdfOptions
 import com.imageprocessingsdk.imagetopdf.ImageFit
+import org.opencv.android.Utils
+import org.opencv.core.Core
+import org.opencv.core.Mat
+import org.opencv.core.MatOfDouble
+import org.opencv.imgproc.Imgproc
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.text.DecimalFormat
 
 class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
+    private lateinit var sourceMatImage: Mat
 
     override fun getName(): String {
         return NAME
     }
 
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
     @ReactMethod
     fun isImageBlurred(imageUrl: String, promise: Promise) {
-        val response = NDKHandler().getBlurredImage(imageUrl)
-        promise.resolve(response)
+        OpenCVInitializer.initialize()
+        sourceMatImage = OpenCVInitializer.createMat()!!
+        val imageBitMap = ImageUtils.getBitmap(imageUrl, true);
+        val score = getSharpnessScoreFromOpenCV(imageBitMap);
+        promise.resolve(score<170)
+    }
+
+    fun getSharpnessScoreFromOpenCV(bitmap: Bitmap): Double {
+        val destination = Mat()
+        val matGray = Mat()
+        Utils.bitmapToMat(bitmap, sourceMatImage)
+        Imgproc.cvtColor(sourceMatImage, matGray, Imgproc.COLOR_BGR2GRAY)
+        Imgproc.Laplacian(matGray, destination, 3)
+        val median = MatOfDouble()
+        val std = MatOfDouble()
+        Core.meanStdDev(destination, median, std)
+        return DecimalFormat("0.00").format(Math.pow(std.get(0, 0)[0], 2.0)).toDouble()
     }
 
 
