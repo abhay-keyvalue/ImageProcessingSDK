@@ -43,7 +43,7 @@ class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
         sourceMatImage = OpenCVInitializer.createMat()!!
         val imageBitMap = ImageUtils.getBitmap(imageUrl, true);
         val score = getSharpnessScoreFromOpenCV(imageBitMap);
-        promise.resolve(score<200)
+        promise.resolve(score<170)
     }
 
     fun getSharpnessScoreFromOpenCV(bitmap: Bitmap): Double {
