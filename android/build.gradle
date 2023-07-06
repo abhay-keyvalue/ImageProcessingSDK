@@ -49,11 +49,6 @@ android {
       minifyEnabled false
     }
   }
-  sourceSets {
-      main {
-          jniLibs.srcDirs = ['src/main/jnilibs']
-      }
-  }
 
   packagingOptions{
     exclude 'META-INF/rxjava.properties'
