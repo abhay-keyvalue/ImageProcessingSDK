@@ -1,8 +1,8 @@
 export const validateImageUrl = (path: string): boolean => {
   if (path === null || path.trim() === '') {
-    return false; // Null or empty string
+    return false;
   }
-  const directoryRegex = /^[^\\/]+$/;
+  const directoryRegex = /\//;
   const hasDirectoryPath = directoryRegex.test(path);
   return hasDirectoryPath;
 };
