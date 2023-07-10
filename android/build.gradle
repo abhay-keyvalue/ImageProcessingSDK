@@ -90,7 +90,7 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation 'androidx.documentfile:documentfile:1.0.1'
-  implementation 'com.github.shashank-keyvalue:aar-publish-msd:1.0.0'
+  implementation 'com.github.shashank-keyvalue:aar-publish-msd:0.0.1'
 }
 
 if (isNewArchitectureEnabled()) {
