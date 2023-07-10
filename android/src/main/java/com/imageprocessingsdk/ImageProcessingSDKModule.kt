@@ -38,12 +38,12 @@ class ImageProcessingSDKModule(reactContext: ReactApplicationContext) :
     }
 
     @ReactMethod
-    fun isImageBlurred(imageUrl: String, promise: Promise) {
+    fun isImageBlurred(imageUrl: String, blurThreshold: Int = 170, promise: Promise) {
         OpenCVInitializer.initialize()
         sourceMatImage = OpenCVInitializer.createMat()!!
         val imageBitMap = ImageUtils.getBitmap(imageUrl, true);
         val score = getSharpnessScoreFromOpenCV(imageBitMap);
-        promise.resolve(score<170)
+        promise.resolve(score<blurThreshold)
     }
 
     fun getSharpnessScoreFromOpenCV(bitmap: Bitmap): Double {
