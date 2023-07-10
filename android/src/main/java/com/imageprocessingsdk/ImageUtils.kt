@@ -1,12 +1,24 @@
+import android.content.ContentResolver
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
-
+import android.net.Uri
+​
 object ImageUtils {
 
-    fun getBitmap(filePath: String, isMutable: Boolean): Bitmap {
-        val exifInterface = ExifInterface(filePath)
+    fun getBitmap(originalfilePath: String, isMutable: Boolean): Bitmap {
+        val uri = Uri.parse(originalfilePath)
+        val filePath:String?
+        val scheme = uri.scheme
+         if (scheme != null && scheme == ContentResolver.SCHEME_CONTENT) {
+             filePath =  uri.path
+        } else if (scheme == null || scheme == ContentResolver.SCHEME_FILE) {
+           filePath= uri.path;
+        } else {
+            throw UnsupportedOperationException("Unsupported scheme: " + uri.scheme)
+        }
+        val exifInterface = ExifInterface(filePath!!)
         val orientation = exifInterface.getRotationDegrees()
 
         val bmpOptions = BitmapFactory.Options()

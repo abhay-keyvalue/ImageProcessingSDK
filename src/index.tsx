@@ -16,9 +16,7 @@ export function isImageBlurred(
   return new Promise((resolve, reject) => {
     if (validateImageUrl(imageUrl)) {
       if (validateImageExtension(imageUrl)) {
-        resolve(
-          ImageProcessingSDK.isImageBlurred(imageUrl.slice(8), blurThreshold)
-        );
+        resolve(ImageProcessingSDK.isImageBlurred(imageUrl, blurThreshold));
       } else {
         reject(new Error(JSON.stringify(ERROR_CODES.ERR002)));
       }
