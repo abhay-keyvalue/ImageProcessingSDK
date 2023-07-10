@@ -1,18 +1,22 @@
 export const ERROR_CODES = {
   ERR001: {
     code: 'ERR001',
-    message: 'Invalid image url',
+    message: 'Invalid url or image path',
   },
   ERR002: {
     code: 'ERR002',
-    message: 'Image format is not supported',
+    message: 'Unsupported Media Types',
   },
   ERR003: {
     code: 'ERR003',
-    message: 'Image list contain invalid image url/s',
+    message: 'Image list contain invalid url or image path',
   },
   ERR004: {
     code: 'ERR004',
-    message: 'Image list contain invalid image format/s',
+    message: 'Image list contain unsupported Media Types',
+  },
+  ERR005: {
+    code: 'ERR003',
+    message: 'File Exceeded Max Size',
   },
 };

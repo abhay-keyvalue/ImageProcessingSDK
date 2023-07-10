@@ -12,10 +12,9 @@ export type CreatePdfOptions = {
 export function isImageBlurred(imageUrl: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     if (validateImageUrl(imageUrl)) {
-      if(validateImageExtension(imageUrl)){
+      if (validateImageExtension(imageUrl)) {
         resolve(ImageProcessingSDK.isImageBlurred(imageUrl.slice(8)));
-      }
-      else{
+      } else {
         reject(new Error(JSON.stringify(ERROR_CODES.ERR002)));
       }
     } else {

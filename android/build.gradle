@@ -64,11 +64,21 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
   }
 
+  splits {
+    abi {
+        enable true
+        reset()
+        include "armeabi-v7a","x86"
+        universalApk true
+    }
+  }
+
 }
 
 repositories {
   mavenCentral()
   google()
+  maven { url 'https://jitpack.io' }
 }
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
@@ -80,7 +90,7 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation 'androidx.documentfile:documentfile:1.0.1'
-  implementation files("libs/opencv.aar")
+  implementation 'com.github.Dev-KishanKV:opencv-aar:3.4.3'
 }
 
 if (isNewArchitectureEnabled()) {
